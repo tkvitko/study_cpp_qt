@@ -6,6 +6,8 @@ DbParamsDialog::DbParamsDialog(QWidget *parent)
     , ui(new Ui::DbParamsDialog)
 {
     ui->setupUi(this);
+    this->setWindowTitle("DB params");
+    ui->le_host->setFocus();
 }
 
 DbParamsDialog::~DbParamsDialog()
