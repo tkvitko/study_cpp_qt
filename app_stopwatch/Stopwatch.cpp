@@ -1,6 +1,8 @@
 #include "Stopwatch.h"
 
-Stopwatch::Stopwatch(QObject *parent) {}
+Stopwatch::Stopwatch(int timeout_, QObject *parent) {
+    timeout = timeout_;
+}
 
 Stopwatch::~Stopwatch() {}
 
@@ -11,7 +13,7 @@ void Stopwatch:: tik()
 
 void Stopwatch::start()
 {
-    this->timer->start(100);
+    this->timer->start(timeout);
 
 }
 

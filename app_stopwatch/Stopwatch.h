@@ -8,9 +8,12 @@
 class Stopwatch : public QObject {
     Q_OBJECT
 
+private:
+    int timeout = 0;
+
 public:
+    explicit Stopwatch(int timeout, QObject *parent = nullptr);
     QTimer *timer = new QTimer(this);
-    explicit Stopwatch(QObject *parent = nullptr);
     ~Stopwatch();
     void tik();
     void start();

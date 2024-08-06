@@ -6,9 +6,10 @@
 
 void MainWindow::turn_off()
 {
-    ui->pb_StartStop->setText("Start");
+    ui->pb_StartStop->setText("Старт");
     this->stopwatch->stop();
     ui->pb_Cycle->setEnabled(false);
+    ui->pb_Clear->setEnabled(false);
 }
 
 void MainWindow::reset()
@@ -23,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->stopwatch = new Stopwatch(this);
+    this->stopwatch = new Stopwatch(100, this);
     reset();
     connect(stopwatch->timer, &QTimer::timeout, this, &MainWindow::increase_l_timer);
 }
@@ -36,10 +37,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pb_StartStop_clicked()
 {
-    if (ui->pb_StartStop->text() == "Start") {
-        ui->pb_StartStop->setText("Stop");
+    if (ui->pb_StartStop->text() == "Старт") {
+        ui->pb_StartStop->setText("Стоп");
         this->stopwatch->start();
         ui->pb_Cycle->setEnabled(true);
+        ui->pb_Clear->setEnabled(true);
     } else {
         turn_off();
     }
