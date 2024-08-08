@@ -13,16 +13,11 @@
   <property name="windowTitle">
    <string>Graphic</string>
   </property>
-  <widget class="QCustomPlot" name="widget" native="true">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>20</y>
-     <width>341</width>
-     <height>251</height>
-    </rect>
-   </property>
-  </widget>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="QCustomPlot" name="widget" native="true"/>
+   </item>
+  </layout>
  </widget>
  <customwidgets>
   <customwidget>

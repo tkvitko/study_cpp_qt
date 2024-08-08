@@ -2,6 +2,7 @@
 #define GRAPHICWINDOW_H
 
 #include <QDialog>
+#include "./ui_graphicwindow.h"
 
 namespace Ui {
 class GraphicWindow;
@@ -10,6 +11,7 @@ class GraphicWindow;
 class GraphicWindow : public QDialog
 {
     Q_OBJECT
+    QCPGraph* graph = nullptr;
 
 public:
     explicit GraphicWindow(QWidget *parent = nullptr);
