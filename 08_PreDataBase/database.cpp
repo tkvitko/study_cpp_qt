@@ -23,6 +23,8 @@ void DataBase::AddDataBase(QString driver, QString nameDB)
 {
 
     *dataBase = QSqlDatabase::addDatabase(driver, nameDB);
+    filmModel = new QSqlTableModel(this, *dataBase);
+    filteredFilmModel = new QSqlQueryModel(this);
 
 }
 
@@ -65,11 +67,31 @@ void DataBase::DisconnectFromDataBase(QString nameDb)
  * \param request - SQL запрос
  * \return
  */
-void DataBase::RequestToDB(QSqlTableModel* filmModel)
+void DataBase::RequestToDB(QTableView* filmView, requestType type)
 {
+    QString query;
+    if (type == 2) {
+        query = "SELECT title, description FROM film f JOIN film_category fc on f.film_id = fc.film_id JOIN category c on c.category_id = fc.category_id WHERE c.name = 'Comedy'";
+    } else if (type == 3) {
+        query = "SELECT title, description FROM film f JOIN film_category fc on f.film_id = fc.film_id JOIN category c on c.category_id = fc.category_id WHERE c.name = 'Horror'";
+    }
 
-    filmModel->setTable("film");
-    filmModel->select();
+    if (type == 1) {
+        filmView->setModel(filmModel);
+        filmModel->setTable("film");
+        filmModel->setHeaderData(1, Qt::Horizontal, QObject::tr("Название"));
+        filmModel->setHeaderData(2, Qt::Horizontal, QObject::tr("Описание"));
+        filmModel->select();
+        filmView->hideColumn(0);
+        for (int i = 3; i < 14; ++i) {
+            filmView->hideColumn(i);
+        }
+    } else {
+        filmView->setModel(filteredFilmModel);
+        filteredFilmModel->setQuery(query);
+        filteredFilmModel->setHeaderData(0, Qt::Horizontal, QObject::tr("Название"));
+        filteredFilmModel->setHeaderData(1, Qt::Horizontal, QObject::tr("Описание"));
+    }
     emit sig_SendDataFromDB(requestAllFilms);
 
 }

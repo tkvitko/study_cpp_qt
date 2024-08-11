@@ -46,9 +46,11 @@ public:
 
     void AddDataBase(QString driver, QString nameDB = "");
     void DisconnectFromDataBase(QString nameDb = "");
-    void RequestToDB(QSqlTableModel* tableModel);
+    void RequestToDB(QTableView* tableView, requestType type);
     QSqlError GetLastError(void);
     void ConnectToDataBase(QVector<QString> dataForConnect);
+    QSqlTableModel* filmModel;
+    QSqlQueryModel* filteredFilmModel;
 
 
 signals:

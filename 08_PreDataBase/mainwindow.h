@@ -33,6 +33,8 @@ private slots:
     void on_pb_request_clicked();
 
 
+    void on_pb_clear_clicked();
+
 signals:
     void sig_RequestToDb(QString request);
 
@@ -43,7 +45,6 @@ private:
     DbData *dataDb;
     DataBase* dataBase;
     QMessageBox* msg;
-    QSqlTableModel* filmModel;
 
     QString request = "SELECT title, release_year, c.name  FROM film f "
                       "JOIN film_category fc on f.film_id = fc.film_id "

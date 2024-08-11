@@ -105,8 +105,9 @@ void MainWindow::on_act_connect_triggered()
  */
 void MainWindow::on_pb_request_clicked()
 {
-    filmModel = new QSqlTableModel(dataBase);
-    auto req = [&]{dataBase->RequestToDB(filmModel);};
+    requestType type;
+    type = static_cast<requestType>(ui->cb_category->currentIndex() + 1);
+    auto req = [&]{dataBase->RequestToDB(ui->tableView, type);};
     QtConcurrent::run(req);
 
 }
@@ -118,10 +119,7 @@ void MainWindow::on_pb_request_clicked()
  */
 void MainWindow::ScreenDataFromDB(int typeRequest)
 {
-
-    ui->tableView->setModel(filmModel);
     ui->tableView->show();
-
 }
 /*!
  * \brief Метод изменяет стотояние формы в зависимости от статуса подключения к БД
@@ -147,4 +145,8 @@ void MainWindow::ReceiveStatusConnectionToDB(bool status)
 }
 
 
+void MainWindow::on_pb_clear_clicked()
+{
+    dataBase->filmModel->clear();
+}
 
