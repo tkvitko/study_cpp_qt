@@ -24,7 +24,7 @@ void DataBase::AddDataBase(QString driver, QString nameDB)
 
     *dataBase = QSqlDatabase::addDatabase(driver, nameDB);
     filmModel = new QSqlTableModel(this, *dataBase);
-    filteredFilmModel = new QSqlQueryModel(this);
+    filteredFilmModel = new QSqlQueryModel;
 
 }
 
@@ -70,17 +70,23 @@ void DataBase::DisconnectFromDataBase(QString nameDb)
 void DataBase::RequestToDB(QTableView* filmView, requestType type)
 {
     QString query;
+    QString catName;
+
     if (type == 2) {
-        query = "SELECT title, description FROM film f JOIN film_category fc on f.film_id = fc.film_id JOIN category c on c.category_id = fc.category_id WHERE c.name = 'Comedy'";
+        catName = "'Comedy'";
     } else if (type == 3) {
-        query = "SELECT title, description FROM film f JOIN film_category fc on f.film_id = fc.film_id JOIN category c on c.category_id = fc.category_id WHERE c.name = 'Horror'";
+        catName = "'Horror'";
     }
+
+    query = "SELECT title, description FROM film f "
+            "JOIN film_category fc on f.film_id = fc.film_id "
+            "JOIN category c on c.category_id = fc.category_id WHERE c.name =" + catName;
 
     if (type == 1) {
         filmView->setModel(filmModel);
         filmModel->setTable("film");
-        filmModel->setHeaderData(1, Qt::Horizontal, QObject::tr("Название"));
-        filmModel->setHeaderData(2, Qt::Horizontal, QObject::tr("Описание"));
+        filmModel->setHeaderData(1, Qt::Horizontal, QObject::tr("Название фильма"));
+        filmModel->setHeaderData(2, Qt::Horizontal, QObject::tr("Описание фильма"));
         filmModel->select();
         filmView->hideColumn(0);
         for (int i = 3; i < 14; ++i) {
@@ -88,9 +94,9 @@ void DataBase::RequestToDB(QTableView* filmView, requestType type)
         }
     } else {
         filmView->setModel(filteredFilmModel);
-        filteredFilmModel->setQuery(query);
-        filteredFilmModel->setHeaderData(0, Qt::Horizontal, QObject::tr("Название"));
-        filteredFilmModel->setHeaderData(1, Qt::Horizontal, QObject::tr("Описание"));
+        filteredFilmModel->setQuery(query, *dataBase);
+        filteredFilmModel->setHeaderData(0, Qt::Horizontal, QObject::tr("Название фильма"));
+        filteredFilmModel->setHeaderData(1, Qt::Horizontal, QObject::tr("Описание фильма"));
     }
     emit sig_SendDataFromDB(requestAllFilms);
 

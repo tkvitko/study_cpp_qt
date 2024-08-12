@@ -119,6 +119,7 @@ void MainWindow::on_pb_request_clicked()
  */
 void MainWindow::ScreenDataFromDB(int typeRequest)
 {
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeMode::Stretch);
     ui->tableView->show();
 }
 /*!
@@ -148,5 +149,6 @@ void MainWindow::ReceiveStatusConnectionToDB(bool status)
 void MainWindow::on_pb_clear_clicked()
 {
     dataBase->filmModel->clear();
+    dataBase->filteredFilmModel->clear();
 }
 
