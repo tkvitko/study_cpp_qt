@@ -86,7 +86,7 @@ void MainWindow::on_act_connect_triggered()
        ui->lb_statusConnect->setStyleSheet("color : black");
 
 
-       auto conn = [&]{dataBase->ConnectToDataBase(dataForConnect);};
+       auto conn = [=]{dataBase->ConnectToDataBase(dataForConnect);};
        QtConcurrent::run(conn);
 
     }
@@ -107,7 +107,7 @@ void MainWindow::on_pb_request_clicked()
 {
     requestType type;
     type = static_cast<requestType>(ui->cb_category->currentIndex() + 1);
-    auto req = [&]{dataBase->RequestToDB(ui->tableView, type);};
+    auto req = [=]{dataBase->RequestToDB(ui->tableView, type);};
     QtConcurrent::run(req);
 
 }
