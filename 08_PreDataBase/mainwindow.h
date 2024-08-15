@@ -25,6 +25,8 @@ public:
 public slots:
     void ScreenDataFromDB(int typeRequest);
     void ReceiveStatusConnectionToDB(bool status);
+    void SetQSqlTableModel(QSqlTableModel* model);
+    void SetQSqlQueryModel(QSqlQueryModel* model);
 
 
 private slots:

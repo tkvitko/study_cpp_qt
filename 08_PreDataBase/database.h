@@ -57,6 +57,8 @@ signals:
 
    void sig_SendDataFromDB(int typeR);
    void sig_SendStatusConnection(bool);
+   void sig_SetQSqlTableModel(QSqlTableModel*);
+   void sig_SetQSqlQueryModel(QSqlQueryModel*);
 
 
 

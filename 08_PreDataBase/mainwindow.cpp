@@ -51,6 +51,10 @@ MainWindow::MainWindow(QWidget *parent)
      */
     connect(dataBase, &DataBase::sig_SendStatusConnection, this, &MainWindow::ReceiveStatusConnectionToDB);
 
+    // сигналы для установки модели в TableView
+    connect(dataBase, &DataBase::sig_SetQSqlQueryModel, this, &MainWindow::SetQSqlQueryModel);
+    connect(dataBase, &DataBase::sig_SetQSqlTableModel, this, &MainWindow::SetQSqlTableModel);
+
 }
 
 MainWindow::~MainWindow()
@@ -86,7 +90,7 @@ void MainWindow::on_act_connect_triggered()
        ui->lb_statusConnect->setStyleSheet("color : black");
 
 
-       auto conn = [=]{dataBase->ConnectToDataBase(dataForConnect);};
+       auto conn = [&]{dataBase->ConnectToDataBase(dataForConnect);};
        QtConcurrent::run(conn);
 
     }
@@ -143,6 +147,16 @@ void MainWindow::ReceiveStatusConnectionToDB(bool status)
         msg->exec();
     }
 
+}
+
+void MainWindow::SetQSqlTableModel(QSqlTableModel* model)
+{
+    ui->tableView->setModel(model);
+}
+
+void MainWindow::SetQSqlQueryModel(QSqlQueryModel *model)
+{
+    ui->tableView->setModel(model);
 }
 
 

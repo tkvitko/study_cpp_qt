@@ -83,7 +83,8 @@ void DataBase::RequestToDB(QTableView* filmView, requestType type)
             "JOIN category c on c.category_id = fc.category_id WHERE c.name =" + catName;
 
     if (type == 1) {
-        filmView->setModel(filmModel);
+        // filmView->setModel(filmModel);
+        emit sig_SetQSqlTableModel(filmModel);
         filmModel->setTable("film");
         filmModel->setHeaderData(1, Qt::Horizontal, QObject::tr("Название фильма"));
         filmModel->setHeaderData(2, Qt::Horizontal, QObject::tr("Описание фильма"));
@@ -93,7 +94,8 @@ void DataBase::RequestToDB(QTableView* filmView, requestType type)
             filmView->hideColumn(i);
         }
     } else {
-        filmView->setModel(filteredFilmModel);
+        // filmView->setModel(filteredFilmModel);
+        emit sig_SetQSqlQueryModel(filteredFilmModel);
         filteredFilmModel->setQuery(query, *dataBase);
         filteredFilmModel->setHeaderData(0, Qt::Horizontal, QObject::tr("Название фильма"));
         filteredFilmModel->setHeaderData(1, Qt::Horizontal, QObject::tr("Описание фильма"));
