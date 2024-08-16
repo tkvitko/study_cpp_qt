@@ -15,17 +15,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1">
-     <widget class="QLabel" name="l_airport">
-      <property name="text">
-       <string>Аэропорт:</string>
-      </property>
-      <property name="buddy">
-       <cstring>cb_airports</cstring>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
+    <item row="4" column="3">
      <widget class="QLabel" name="l_date">
       <property name="text">
        <string>Дата:</string>
@@ -35,13 +25,13 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
-     <widget class="QLabel" name="l_direction">
+    <item row="0" column="3">
+     <widget class="QLabel" name="l_airport">
       <property name="text">
-       <string>Направление:</string>
+       <string>Аэропорт:</string>
       </property>
       <property name="buddy">
-       <cstring>cb_directions</cstring>
+       <cstring>cb_airports</cstring>
       </property>
      </widget>
     </item>
@@ -63,7 +53,40 @@
       </item>
      </layout>
     </item>
+    <item row="1" column="3">
+     <widget class="QComboBox" name="cb_airports"/>
+    </item>
+    <item row="2" column="3">
+     <widget class="QLabel" name="l_direction">
+      <property name="text">
+       <string>Направление:</string>
+      </property>
+      <property name="buddy">
+       <cstring>cb_directions</cstring>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" rowspan="7">
+     <widget class="QTableView" name="tv_flights"/>
+    </item>
     <item row="5" column="3">
+     <widget class="QCalendarWidget" name="cw_date">
+      <property name="maximumSize">
+       <size>
+        <width>300</width>
+        <height>300</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="3">
+     <widget class="QPushButton" name="pb_flights">
+      <property name="text">
+       <string>Рейсы</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="3">
      <widget class="QPushButton" name="pb_statistics">
       <property name="text">
        <string>Статистика</string>
@@ -71,23 +94,7 @@
      </widget>
     </item>
     <item row="3" column="3">
-     <widget class="QCalendarWidget" name="cw_date"/>
-    </item>
-    <item row="2" column="0" rowspan="4">
-     <widget class="QTableView" name="tv_flights"/>
-    </item>
-    <item row="0" column="3">
-     <widget class="QComboBox" name="cb_airports"/>
-    </item>
-    <item row="2" column="3">
      <widget class="QComboBox" name="cb_directions"/>
-    </item>
-    <item row="4" column="3">
-     <widget class="QPushButton" name="pb_flights">
-      <property name="text">
-       <string>Рейсы</string>
-      </property>
-     </widget>
     </item>
    </layout>
   </widget>
