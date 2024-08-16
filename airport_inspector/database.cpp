@@ -33,8 +33,9 @@ void DataBase::ConnectToDataBase()
 void DataBase::getAirportsFromDb()
 {
     QString query;
-    query = "SELECT airport_name->>'ru' as name, airport_code as code FROM bookings.airports_data";
-    // emit sig_SetAirportsModel(airportsModel);
+    query = "SELECT airport_name->>'ru' as name, airport_code as code "
+            "FROM bookings.airports_data "
+            "ORDER BY airport_name->>'ru'";
     airportsModel->setQuery(query, *dataBase);
     emit sig_SendAirports(airportsModel);
 }
