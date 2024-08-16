@@ -12,6 +12,10 @@ MainWindow::MainWindow(QWidget *parent)
     dataBase->AddDataBase(POSTGRE_DRIVER, "DB");
     connect(dataBase, &DataBase::sig_SendStatusConnection, this, &MainWindow::ReceiveStatusConnectionToDB);
     dataBase->ConnectToDataBase();
+
+    // connect(dataBase, &DataBase::sig_SetAirportsModel, this, &MainWindow::SetAirportsModel);
+    connect(dataBase, &DataBase::sig_SendAirports, this, &MainWindow::ShowAirports);
+    dataBase->getAirportsFromDb();
 }
 
 MainWindow::~MainWindow()
@@ -35,3 +39,18 @@ void MainWindow::ReceiveStatusConnectionToDB(bool status)
     }
 
 }
+
+// void MainWindow::SetAirportsModel(QSqlQueryModel *model)
+// {
+//     ui->cb_airports->setModel(model);
+//     ui->cb_airports->setModelColumn(0);
+// }
+
+void MainWindow::ShowAirports(QSqlQueryModel *model)
+{
+    ui->cb_airports->setModel(model);
+    ui->cb_airports->setModelColumn(0);
+    ui->cb_airports->show();
+}
+
+

@@ -23,14 +23,18 @@ public:
     void AddDataBase(QString driver, QString nameDB = "");
     QSqlError GetLastError(void);
     void ConnectToDataBase();
+    void getAirportsFromDb();
 
 
 signals:
     void sig_SendStatusConnection(bool);
+    // void sig_SetAirportsModel(QSqlQueryModel*);
+    void sig_SendAirports(QSqlQueryModel*);
 
 
 private:
     QSqlDatabase* dataBase;
+    QSqlQueryModel* airportsModel;
 
 };
 

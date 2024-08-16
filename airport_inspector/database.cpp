@@ -13,6 +13,7 @@ DataBase::~DataBase()
 void DataBase::AddDataBase(QString driver, QString nameDB)
 {
     *dataBase = QSqlDatabase::addDatabase(driver, nameDB);
+    airportsModel = new QSqlQueryModel;
 }
 
 void DataBase::ConnectToDataBase()
@@ -27,7 +28,15 @@ void DataBase::ConnectToDataBase()
     bool status;
     status = dataBase->open( );
     emit sig_SendStatusConnection(status);
+}
 
+void DataBase::getAirportsFromDb()
+{
+    QString query;
+    query = "SELECT airport_name->>'ru' as name, airport_code as code FROM bookings.airports_data";
+    // emit sig_SetAirportsModel(airportsModel);
+    airportsModel->setQuery(query, *dataBase);
+    emit sig_SendAirports(airportsModel);
 }
 
 /*!
