@@ -29,6 +29,9 @@ public slots:
     void ReceiveStatusConnectionToDB(bool status);
     // void SetAirportsModel(QSqlQueryModel* model);
     void ShowAirports(QSqlQueryModel* model);
+    void ShowFlights(QSqlQueryModel* model);
 
+private slots:
+    void on_pb_flights_clicked();
 };
 #endif // MAINWINDOW_H

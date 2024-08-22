@@ -24,17 +24,20 @@ public:
     QSqlError GetLastError(void);
     void ConnectToDataBase();
     void getAirportsFromDb();
+    void getFlights(QString cityId, QString date, QString direction);
 
 
 signals:
     void sig_SendStatusConnection(bool);
     // void sig_SetAirportsModel(QSqlQueryModel*);
     void sig_SendAirports(QSqlQueryModel*);
+    void sig_SendFlights(QSqlQueryModel*);
 
 
 private:
     QSqlDatabase* dataBase;
     QSqlQueryModel* airportsModel;
+    QSqlQueryModel* flightsModel;
 
 };
 

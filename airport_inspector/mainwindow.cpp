@@ -15,6 +15,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(dataBase, &DataBase::sig_SendAirports, this, &MainWindow::ShowAirports);
     dataBase->getAirportsFromDb();
+
+    ui->cb_directions->addItem("Вылет");
+    ui->cb_directions->addItem("Прилёт");
+
+    connect(dataBase, &DataBase::sig_SendFlights, this, &MainWindow::ShowFlights);
 }
 
 MainWindow::~MainWindow()
@@ -46,4 +51,21 @@ void MainWindow::ShowAirports(QSqlQueryModel *model)
     ui->cb_airports->show();
 }
 
+void MainWindow::ShowFlights(QSqlQueryModel *model)
+{
+    ui->tv_flights->setModel(model);
+    ui->tv_flights->show();
+}
+
+
+void MainWindow::on_pb_flights_clicked()
+{
+    int row = ui->cb_airports->currentIndex();
+    QModelIndex idx = ui->cb_airports->model()->index(row, 1);
+    QString cityCode = ui->cb_airports->model()->data(idx).toString();
+    QString direction = ui->cb_directions->currentText();
+    QString date = ui->cw_date->selectedDate().toString("yyyy-MM-dd");
+
+    dataBase->getFlights(cityCode, date, direction);
+}
 
