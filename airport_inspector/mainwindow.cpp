@@ -19,7 +19,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->cb_directions->addItem("Вылет");
     ui->cb_directions->addItem("Прилёт");
 
+    ui->cw_date->setMinimumDate(QDate(2016, 8, 15));
+    ui->cw_date->setMaximumDate(QDate(2017, 9, 14));
+
     connect(dataBase, &DataBase::sig_SendFlights, this, &MainWindow::ShowFlights);
+    ui->tv_flights->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeMode::Stretch);
 }
 
 MainWindow::~MainWindow()

@@ -45,16 +45,20 @@ void DataBase::getFlights(QString cityId, QString date, QString direction)
 {
     QString query;
     if (direction == "Прилёт") {
-        query = "SELECT flight_no, scheduled_arrival, ad.airport_name->>'ru' AS 'Name' FROM bookings.flights f "
+        query = "SELECT flight_no, scheduled_arrival, ad.airport_name->>'ru' AS \"Name\" FROM bookings.flights f "
                 "JOIN bookings.airports_data ad on ad.airport_code = f.departure_airport "
                 "WHERE f.arrival_airport  = '" + cityId +  "' AND f.scheduled_arrival::date = '" + date + "'";
     } else {
-        query = "SELECT flight_no, scheduled_arrival, ad.airport_name->>'ru' AS 'Name' FROM bookings.flights f "
+        query = "SELECT flight_no, scheduled_arrival, ad.airport_name->>'ru' AS \"Name\" FROM bookings.flights f "
                 "JOIN bookings.airports_data ad on ad.airport_code = f.arrival_airport "
                 "WHERE f.departure_airport  = '" + cityId +  "' AND f.scheduled_arrival::date = '" + date + "'";
     };
 
     flightsModel->setQuery(query, *dataBase);
+    if(flightsModel->lastError().isValid()){
+        qDebug() << flightsModel->lastError();
+    }
+
     flightsModel->setHeaderData(0, Qt::Horizontal, QObject::tr("Номер рейса"));
     flightsModel->setHeaderData(1, Qt::Horizontal, QObject::tr("Время вылета"));
     flightsModel->setHeaderData(2, Qt::Horizontal, QObject::tr("Аэропорт"));
